@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=PT+Sans:wght@400;700&family=Quicksand:wght@300;400&display=swap');
+
+$heading-font: 'PT Sans', sans-serif;
+$sub-heading-font: 'Dancing Script', cursive;
+$text-font: 'Quicksand', sans-serif;
+
+$transition: all 0.5s;
+
+$heading-color: #333333;
+$sub-heading-color: #658f41;
+$text-color: #732c26;
+
+$tomato-color-light: #f24b6a;
+$tomato-color-dark: #d95e52;
+$green-color-light: #90a641;
+$green-color-dark: #658f41;
+$background-color-light: #fff3db;
+$background-color-dark: #edd39c;
+$background-color-light-2: #ffe8b8;
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: $text-font;
+  font-weight: 400;
+  background-color: $background-color-light;
+  color: $text-color;
+  line-height: 1.6;
+
+  padding: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: $text-color;
+}
+
+h1,
+h2 {
+  line-height: 1.2;
+  color: $heading-color;
+  font-family: $heading-font;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+  color: $sub-heading-color;
+  font-family: $sub-heading-font;
+}
+
+ul {
+  list-style: none;
+}
+
+@mixin d-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin center {
+  display: grid;
+  place-items: center;
+}
