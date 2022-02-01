@@ -1,17 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useContext } from 'react';
+import { AppContext } from '../../context/context';
+
 import cookbookLogo from '../../assets/cook-book.png';
 import searchImage from '../../assets/searching.png';
 
-import { getJSON, getRecipeInfo } from '../../utils/helper';
+import './home.styles.scss';
 
-import './header.styles.scss';
 import RecipeItem from './search-recipe-item.component';
 
-const Header = () => {
+const Home = () => {
+  const { recipeData, fetchRecipeData, fetchRecipeInfo } =
+    useContext(AppContext);
+
   const [query, setQuery] = useState('');
-  const [data, setData] = useState([]);
-  const [id, setId] = useState(null);
-  const [recipeInfo, setRecipeInfo] = useState([]);
 
   const scrollRef = useRef(null);
 
@@ -25,23 +26,19 @@ const Header = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      setData(await getJSON(query));
+    if (query) {
+      fetchRecipeData(query);
       setQuery('');
-    } catch (error) {
-      alert(`Header Component ${error}`);
     }
   };
 
-  const getRecipeId = (id) => {
-    return setId(id);
+  const getRecipeId = async (id) => {
+    if (id) {
+      await fetchRecipeInfo(id);
+    }
   };
-
-  useEffect(() => {
-    setRecipeInfo(getRecipeInfo(id));
-  }, [id]);
 
   return (
     <header className='header'>
@@ -71,15 +68,15 @@ const Header = () => {
         </div>
       </form>
       {/* Recipe search items section starts */}
-      {data.length !== 0 && (
+      {recipeData.length !== 0 && (
         <>
           <span className='header__recipeCount'>
-            Total <big>{data.totalResults}</big> recipe(s) found. <br /> Click
-            on the recipe for more information.
+            Total <big>{recipeData.totalResults}</big> recipe(s) found. <br />{' '}
+            Click on the recipe for more information.
           </span>
 
           <div ref={scrollRef} className='header__searchView'>
-            {data.results.map((item) => {
+            {recipeData.results.map((item) => {
               return (
                 <RecipeItem
                   key={item.id}
@@ -114,4 +111,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Home;
