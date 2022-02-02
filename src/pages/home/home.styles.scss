@@ -1,7 +1,7 @@
 @import '../../index.scss';
 
 .header {
-  height: calc(100vh - 4rem);
+  min-height: calc(100vh - 4rem);
   width: 92vw;
   margin: 0 auto;
 
@@ -10,7 +10,7 @@
   flex-direction: column;
   justify-content: center;
 
-  overflow: hidden;
+  // overflow: hidden;
 
   &__content {
     text-align: center;

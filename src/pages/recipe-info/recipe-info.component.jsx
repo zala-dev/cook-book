@@ -59,7 +59,7 @@ const RecipeInfo = () => {
           <div className='recipe__instructions'>
             <h2 className='recipe__instructions--heading'>Instructions</h2>
             <p className='recipe__instructions--text'>
-              {stringToHTML(recipeInfo.instructions)}
+              {stringToHTML(recipeInfo?.instructions)}
             </p>
           </div>
         </>
