@@ -7,9 +7,10 @@ import searchImage from '../../assets/searching.png';
 import './home.styles.scss';
 
 import RecipeItem from './search-recipe-item.component';
+import Loading from '../../components/Loading/loading.component';
 
 const Home = () => {
-  const { recipeData, fetchRecipeData, fetchRecipeInfo } =
+  const { recipeData, fetchRecipeData, fetchRecipeInfo, isLoading } =
     useContext(AppContext);
 
   const [query, setQuery] = useState('');
@@ -40,6 +41,10 @@ const Home = () => {
     }
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <header className='header'>
       <div className='header__content'>
@@ -49,6 +54,7 @@ const Home = () => {
       <div className='header__logo'>
         <img src={cookbookLogo} alt='cook-book' />
       </div>
+
       <form className='header__form' onSubmit={handleSubmit}>
         <div className='header__form--input-container'>
           <input

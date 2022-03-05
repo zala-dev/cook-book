@@ -5,7 +5,7 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [recipeData, setRecipeData] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [error, setError] = useState({ show: false, message: '' });
 
@@ -21,6 +21,7 @@ const AppProvider = ({ children }) => {
   // Fetch recipe
   const fetchRecipeData = async (query) => {
     try {
+      setIsLoading(true);
       const fetchPro = fetch(
         `${SEARCH_RECIPE_URL}${query}&number=100&apiKey=${API_KEY}`
       );
@@ -29,6 +30,7 @@ const AppProvider = ({ children }) => {
       if (!res.ok) throw new Error(`${data.message} (${res.status})`);
       // const { results, totalResults } = data;
       setRecipeData(data);
+      setIsLoading(false);
       // return {
       //   results,
       //   totalResults,
@@ -42,15 +44,16 @@ const AppProvider = ({ children }) => {
   // Fetch recipe information
   const fetchRecipeInfo = async (id) => {
     try {
+      setIsLoading(true);
       if (!id) return;
 
       const res = await fetch(
         `https://api.spoonacular.com/recipes/${id}/information?&apiKey=${API_KEY}`
       );
       const data = await res.json();
-
       if (!res.ok) throw new Error(`${data.message} (${res.status})`);
       setRecipeInfo(data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
       setError({ show: true, message: error });
@@ -61,7 +64,7 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         fetchRecipeData,
-        // isLoading,
+        isLoading,
         recipeInfo,
         error,
         fetchRecipeInfo,

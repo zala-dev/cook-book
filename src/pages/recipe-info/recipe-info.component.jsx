@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import RecipeImage from '../../assets/burger.jpeg';
+import Loading from '../../components/Loading/loading.component';
 import { AppContext } from '../../context/context';
 
 import './recipe-info.styles.scss';
 
 const RecipeInfo = () => {
-  const { recipeInfo } = useContext(AppContext);
+  const { recipeInfo, isLoading } = useContext(AppContext);
 
   const { image, title, dishTypes, extendedIngredients } = recipeInfo;
 
@@ -18,7 +19,9 @@ const RecipeInfo = () => {
 
   return (
     <article className='recipe'>
-      {recipeInfo && (
+      {isLoading ? (
+        <Loading />
+      ) : (
         <>
           <figure className='recipe__fig'>
             <img
@@ -59,7 +62,7 @@ const RecipeInfo = () => {
           <div className='recipe__instructions'>
             <h2 className='recipe__instructions--heading'>Instructions</h2>
             <p className='recipe__instructions--text'>
-              {stringToHTML(recipeInfo?.instructions)}
+              {stringToHTML(recipeInfo.instructions && recipeInfo.instructions)}
             </p>
           </div>
         </>
